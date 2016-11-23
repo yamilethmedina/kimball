@@ -192,6 +192,7 @@ GEM
       rubocop (~> 0.20)
     has_secure_token (1.0.0)
       activerecord (>= 3.0)
+    hashie (3.0.0)
     hashr (0.0.22)
     health_check (2.2.1)
       rails (>= 4.0)
@@ -461,6 +462,10 @@ GEM
       actionpack (>= 3.1)
       jquery-rails
       railties (>= 3.1)
+    typeform (0.0.2)
+      hashie (~> 3.0.0)
+      httparty
+      json
     typhoeus (0.8.0)
       ethon (>= 0.8.0)
     tzinfo (1.2.2)
@@ -581,6 +586,7 @@ DEPENDENCIES
   twilio-ruby
   twitter-bootstrap-rails (~> 2.2.0)
   twitter-typeahead-rails
+  typeform
   uglifier (>= 1.0.3)
   unicorn
   validates_overlap
@@ -596,4 +602,4 @@ RUBY VERSION
    ruby 2.2.5p319
 
 BUNDLED WITH
-   1.12.5
+   1.13.6

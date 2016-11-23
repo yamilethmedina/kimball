@@ -109,6 +109,9 @@ gem 'twilio-ruby'
 # use Wuparty for wufoo
 gem 'wuparty'
 
+# for typeform
+gem 'typeform'
+
 # Use gsm_encoder to help text messages send correctly
 gem 'gsm_encoder'
 

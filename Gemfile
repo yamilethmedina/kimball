@@ -119,6 +119,8 @@ gem 'wuparty'
 # for typeform
 gem 'typeform'
 
+gem 'better_errors'
+
 # Use gsm_encoder to help text messages send correctly
 gem 'gsm_encoder'
 

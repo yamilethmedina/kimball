@@ -284,6 +284,7 @@ GEM
       paper_trail (>= 3.0.0)
     parser (2.3.1.2)
       ast (~> 2.2)
+    pg (0.19.0)
     phony (2.15.28)
     phony_rails (0.14.2)
       activesupport (>= 3.0)
@@ -557,6 +558,7 @@ DEPENDENCIES
   newrelic_rpm
   paper_trail
   paper_trail-globalid
+  pg
   phony_rails
   poltergeist
   pry

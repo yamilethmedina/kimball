@@ -33,7 +33,8 @@ staging:
 
 
 production:
-  adapter: mysql2
+  adapter: postgresql
+  encoding: unicode
   database: <%= ENV['RAILS_ENV'] || 'production' %>
   host: <%= ENV['MYSQL_HOST'] || 'localhost' %>
   username: <%= ENV['MYSQL_USER'] || 'logan' %>

@@ -159,4 +159,11 @@ Vagrant.configure(2) do |config|
     sudo chown -R www-data:www-data /var/run/nginx/
     sudo service nginx restart
   )
+
+  config.vm.provision :shell, privileged: false, run: "always", inline: %(
+    cd /vagrant/
+    bundle exec unicorn_rails -D
+    sudo service nginx restart
+  )
 end
+

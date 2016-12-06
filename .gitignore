@@ -39,3 +39,6 @@ Procfile
 
 # screenshots
 screenshot*
+
+# Ignore application configuration
+/config/application.yml

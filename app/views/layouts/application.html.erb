@@ -4,7 +4,14 @@
   <title>Patterns | <%= title = yield(:page_title); title.present? ? title : controller_name.humanize.titlecase %></title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
+  <%= csrf_meta_tag %>
+
+    <%= javascript_tag do %>
+      jQuery(document).ajaxSend(function(e, xhr, options) {
+       var token = jQuery("meta[name='csrf-token']").attr("content");
+        xhr.setRequestHeader("X-CSRF-Token", token);
+      });
+    <% end %>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <% if Logan::Application.config.google_analytics_enabled %>

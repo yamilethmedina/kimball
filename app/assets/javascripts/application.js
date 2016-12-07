@@ -51,4 +51,6 @@ $(document).on('ready page:load',function() {
     }
   });
 
+  $("meta[name=csrf-token]").attr('content', '<%= form_authenticity_token %>');
+
 });

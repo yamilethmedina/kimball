@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :reset_session
 
   after_action :flash_to_headers
 
@@ -14,6 +14,7 @@ class ApplicationController < ActionController::Base
   before_action :set_paper_trail_whodunnit
   before_action :set_global_search_variable
 
+
   def set_global_search_variable
     @q = Person.ransack(params[:q])
   end
@@ -23,6 +24,8 @@ class ApplicationController < ActionController::Base
       render json: { 'error' => 'authentication error' }, status: 401
     end
   end
+
+
 
   def flash_to_headers
     return unless request.xhr?
@@ -46,5 +49,8 @@ class ApplicationController < ActionController::Base
       end
       nil
     end
+
+
+
 
 end

@@ -49,9 +49,6 @@ module Logan
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     config.time_zone = ENV['TIME_ZONE'] || "Eastern Time (US & Canada)"
 
-    # Prevent CSRF errors on WebKit browsers
-    skip_before_action :verify_authenticity_token, if: :devise_controller?
-
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
 

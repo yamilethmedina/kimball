@@ -1,7 +1,6 @@
 <div class="row">
   <div class="offset4 span4">
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), class: 'form-horizontal') do |f| %>
-    <%= csrf_meta_tag %>
       <div class="control-group">
         <%= f.label :email, class: 'control-label' %>
         <div class="controls"><%= f.email_field :email, :autofocus => true %></div>

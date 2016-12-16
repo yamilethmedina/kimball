@@ -6,15 +6,19 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  after_action :flash_to_headers
 
   # this is so that json requests don't redirect without a user
   before_action :authenticate_user!
   # before_action :authenticate_user!, unless: request.format == :json
   # before_action :user_needed, if: request.format == :json
+  skip_before_action :verify_authenticity_token
+
+  after_action :flash_to_headers
 
   before_action :set_paper_trail_whodunnit
   before_action :set_global_search_variable
+
+
 
 
   def set_global_search_variable

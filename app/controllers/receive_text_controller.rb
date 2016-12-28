@@ -59,8 +59,11 @@ class ReceiveTextController < ApplicationController
   #
   def smssignup
     # this is where surveys and new signups land.
-    wufoo = WuParty.new(ENV['WUFOO_ACCOUNT'], ENV['WUFOO_API'])
-    wufoo.forms
+    # wufoo = WuParty.new(ENV['WUFOO_ACCOUNT'], ENV['WUFOO_API'])
+    Typeform.api_key = ENV['TYPEFORM_API_KEY']
+    typeform_id = "VNdhGF"
+    form = Typeform::Form.new(VNdhGF)
+    # wufoo.forms
 
     session['counter'] ||= 0
     session['fieldanswers'] ||= {}

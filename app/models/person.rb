@@ -30,6 +30,7 @@
 #  secondary_connection_description :string(255)
 #  verified                         :string(255)
 #  preferred_contact_method         :string(255)
+#  referral_source                  :string(255)
 #  token                            :string(255)
 #  active                           :boolean          default(TRUE)
 #  deactivated_at                   :datetime
@@ -128,27 +129,32 @@ class Person < ActiveRecord::Base
     total = gift_cards.sum(:amount_cents)
     Money.new(total, 'USD')
   end
-
-  WUFOO_FIELD_MAPPING = {
-    'Field1'   => :first_name,
-    'Field2'   => :last_name,
-    'Field10'  => :email_address,
-    'Field276' => :voted,
-    'Field277' => :called_311,
-    'Field39'  => :primary_device_id, # type of primary
-    'Field21'  => :primary_device_description, # desc of primary
-    'Field40'  => :secondary_device_id,
-    'Field24'  => :secondary_device_description, # desc of secondary
-    'Field41'  => :primary_connection_id, # connection type
-    # 'Field41' =>  :primary_connection_description, # description of connection
-    'Field42'  => :secondary_connection_id, # connection type
-    # 'Field42' =>  :secondary_connection_description, # description of connection
-    'Field268' => :address_1, # address_1
-    'Field269' => :city, # city
+# in progress
+  TYPEFORM_FIELD_MAPPING = {
+    'textfield_22738196'   => :first_name,
+    'textfield_22738199'   => :last_name,
+    'email_22062331'  => :email_address,
+    'yesno_22061529' => :voted,
+    'yesno_22061601' => :called_311,
+    'list_22062284_choice'  => :primary_device_id, # type of primary
+    'textfield_22062298'  => :primary_device_description, # desc of primary
+    # 'Field40'  => :secondary_device_id,
+    # 'Field24'  => :secondary_device_description, # desc of secondary
+    'list_22062073_choice'  => :primary_connection_id, # connection type
+    # 'list_22062073_other' =>  :primary_connection_description, # description of connection
+    'list_22062075_choice'  => :secondary_connection_id, # connection type
+    # 'list_22062075_other' =>  :secondary_connection_description, # description of connection
+    'textfield_22480714' => :address_1, # address_1
+    'textfield_34681685' => :city, # city
     # 'Field47' =>  :state, # state
-    'Field271' => :postal_code, # postal_code
-    'Field9'   => :phone_number, # phone_number
-    'IP'       => :signup_ip, # client IP, ignored for the moment
+    'dropdown_26879082' => :postal_code, # postal_code
+    'textfield_22061390'   => :phone_number, # phone_number
+    # 'list_22738343_choice_29395152' => :english #language
+    # 'list_22738343_choice_29395153' => :spanish #language
+    # 'list_22738343_choice_29395154' => :creole #language
+    # 'list_22738343_other' => :other_language #language,
+    'textfield_22061617' => :referral_source, # how did you find out about CUT group?
+    'IP'       => :signup_ip # client IP, ignored for the moment
 
   }.freeze
 
@@ -167,17 +173,17 @@ class Person < ActiveRecord::Base
   # FIXME: Refactor and re-enable cop
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Rails/TimeZone
   #
-  def self.initialize_from_wufoo_sms(params)
+  def self.initialize_from_typeform_sms(params)
     new_person = Person.new
 
     # Save to Person
-    new_person.first_name = params['Field275']
-    new_person.last_name = params['Field276']
-    new_person.address_1 = params['Field268']
-    new_person.postal_code = params['Field271']
-    new_person.email_address = params['Field279']
-    new_person.phone_number = params['field281']
-    new_person.primary_device_id = case params['Field39'].upcase
+    new_person.first_name = params['textfield_22738196']
+    new_person.last_name = params['textfield_22738199']
+    new_person.address_1 = params['textfield_22480714']
+    new_person.postal_code = params['dropdown_26879082']
+    new_person.email_address = params['email_22062331']
+    new_person.phone_number = params['textfield_22061390']
+    new_person.primary_device_id = case params['list_22062284_choice'].upcase
                                    when 'A'
                                      Person.map_device_to_id('Desktop computer')
                                    when 'B'
@@ -187,12 +193,12 @@ class Person < ActiveRecord::Base
                                    when 'D'
                                      Person.map_device_to_id('Smart phone')
                                    else
-                                     params['Field39']
+                                     params['list_22062284_choice']
                                    end
 
-    new_person.primary_device_description = params['Field21']
+    new_person.primary_device_description = params['textfield_22062298']
 
-    new_person.primary_connection_id = case params['Field41'].upcase
+    new_person.primary_connection_id = case params['list_22062073_choice'].upcase
                                        when 'A'
                                          Person.primary_connection_id('Broadband at home')
                                        when 'B'
@@ -202,20 +208,24 @@ class Person < ActiveRecord::Base
                                        when 'D'
                                          Person.primary_connection_id('Public computer center')
                                        else
-                                         params['Field41']
+                                         params['list_22062073_choice']
                                        end
 
-    new_person.preferred_contact_method = if params['Field278'].casecmp('TEXT')
-                                            'SMS'
-                                          else
-                                            'EMAIL'
-                                          end
+    new_person.preferred_contact_method = case params['list_22061696_choice_28489809'].upcase
+                                        when 'A'
+                                          Person.preferred_contact_method('Email')
+                                        when 'B'
+                                          Person.preferred_contact_method('Text message')
+                                        else
+                                          params['list_22061696_choice_28489809']
+                                       end
 
     new_person.verified = 'Verified by Text Message Signup'
     new_person.signup_at = Time.now
 
     new_person
   end
+
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize, Metrics/CyclomaticComplexity, Rails/TimeZone
 
   # FIXME: Refactor and re-enable cop
@@ -260,41 +270,46 @@ class Person < ActiveRecord::Base
   # FIXME: Refactor and re-enable cop
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize, Rails/TimeZone, Metrics/PerceivedComplexity
   #
-  def self.initialize_from_wufoo(params)
+  def self.initialize_from_typeform(params)
     new_person = Person.new
     params.each_pair do |k, v|
-      new_person[WUFOO_FIELD_MAPPING[k]] = v if WUFOO_FIELD_MAPPING[k].present?
+      new_person[TYPEFORM_FIELD_MAPPING[k]] = v if TYPEFORM_FIELD_MAPPING[k].present?
     end
 
     # Special handling of participation type. New form uses 2 fields where old form used 1. Need to combine into one. Manually set to "Either one" if both field53 & field54 are populated.
-    new_person.participation_type = if params['Field53'] != '' && params['Field54'] != ''
+    # is this workaround still needed for Typeform? It offers one field with 2 different choices.
+   # refactor with case statements?
+    new_person.participation_type = if params['list_22738642_choice_29395606'] != '' && params['list_22738642_choice_29395607'] != ''
                                       'Either one'
-                                    elsif params['Field53'] != ''
-                                      params['Field53']
+                                    elsif params['list_22738642_choice_29395606'] != ''
+                                      params['list_22738642_choice_29395606']
                                     else
-                                      params['Field54']
+                                      params['list_22738642_choice_29395607']
                                     end
 
-    new_person.preferred_contact_method = if params['Field273'] == 'Email'
-                                            'EMAIL'
-                                          else
-                                            'SMS'
-                                          end
+    new_person.preferred_contact_method = case params['list_22061696_choice_28489809'].upcase
+                                       when 'A'
+                                         Person.preferred_contact_method('Email')
+                                       when 'B'
+                                         Person.preferred_contact_method('Text message')
+                                       else
+                                        params['list_22061696_choice_28489809']
+                                       end
 
     # Copy connection descriptions to description fields
     new_person.primary_connection_description = new_person.primary_connection_id
     new_person.secondary_connection_description = new_person.secondary_connection_id
 
     # rewrite the device and connection identifiers to integers
-    new_person.primary_device_id        = Person.map_device_to_id(params[WUFOO_FIELD_MAPPING.rassoc(:primary_device_id).first])
-    new_person.secondary_device_id      = Person.map_device_to_id(params[WUFOO_FIELD_MAPPING.rassoc(:secondary_device_id).first])
-    new_person.primary_connection_id    = Person.map_connection_to_id(params[WUFOO_FIELD_MAPPING.rassoc(:primary_connection_id).first])
-    new_person.secondary_connection_id  = Person.map_connection_to_id(params[WUFOO_FIELD_MAPPING.rassoc(:secondary_connection_id).first])
+    new_person.primary_device_id        = Person.map_device_to_id(params[TYPEFORM_FIELD_MAPPING.rassoc(:primary_device_id).first])
+    new_person.secondary_device_id      = Person.map_device_to_id(params[TYPEFORM_FIELD_MAPPING.rassoc(:secondary_device_id).first])
+    new_person.primary_connection_id    = Person.map_connection_to_id(params[TYPEFORM_FIELD_MAPPING.rassoc(:primary_connection_id).first])
+    new_person.secondary_connection_id  = Person.map_connection_to_id(params[TYPEFORM_FIELD_MAPPING.rassoc(:secondary_connection_id).first])
 
     # FIXME: this is a hack, since we need to initialize people
     # with a city/state, but don't ask for it in the Wufoo form
     # new_person.city  = "Chicago" With update we ask for city
-    new_person.state = 'Illinois'
+    new_person.state = 'Florida'
 
     new_person.signup_at = params['DateCreated']
 

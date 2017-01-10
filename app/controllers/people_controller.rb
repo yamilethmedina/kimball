@@ -48,7 +48,6 @@ class PeopleController < ApplicationController
   # GET /people
   # GET /people.json
   def index
-    @form = Typeform::Form.new(VNdhGF)
     @verified_types = Person.uniq.pluck(:verified).select(&:present?)
     @people = if params[:tags].blank? || params[:tags] == ''
                 Person.paginate(page: params[:page]).order(sort_column + ' ' + sort_direction).where(active: true)

@@ -35,6 +35,8 @@
 
 # FIXME: Refactor and re-enable cop
 # rubocop:disable ClassLength
+
+
 class PeopleController < ApplicationController
 
   before_action :set_person, only: [:show, :edit, :update, :destroy]
@@ -46,15 +48,17 @@ class PeopleController < ApplicationController
   # GET /people
   # GET /people.json
   def index
-    @verified_types = Person.uniq.pluck(:verified).select(&:present?)
-    @people = if params[:tags].blank? || params[:tags] == ''
-                Person.paginate(page: params[:page]).order(sort_column + ' ' + sort_direction).where(active: true)
-              else
-                tag_names =  params[:tags].split(',').map(&:strip)
-                tags = Tag.where(name: tag_names)
-                Person.paginate(page: params[:page]).order(sort_column + ' ' + sort_direction).where(active: true).includes(:tags).where(tags: { id: tags.pluck(:id) })
-              end
-    @tags = params[:tags].blank? ? '[]' : Tag.where(name: params[:tags].split(',').map(&:strip)).to_json(methods: [:value, :label, :type])
+    form = Typeform::Form.new(VNdhGF)
+    # @verified_types = Person.uniq.pluck(:verified).select(&:present?)
+    # @people = if params[:tags].blank? || params[:tags] == ''
+    #             Person.paginate(page: params[:page]).order(sort_column + ' ' + sort_direction).where(active: true)
+    #           else
+    #             tag_names =  params[:tags].split(',').map(&:strip)
+    #             tags = Tag.where(name: tag_names)
+    #             Person.paginate(page: params[:page]).order(sort_column + ' ' + sort_direction).where(active: true).includes(:tags).where(tags: { id: tags.pluck(:id) })
+    #           end
+    # @tags = params[:tags].blank? ? '[]' : Tag.where(name: params[:tags].split(',').map(&:strip)).to_json(methods: [:value, :label, :type])
+  @all_entries = form.all_entries
   end
 
   # GET /people/1

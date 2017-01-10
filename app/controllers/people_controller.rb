@@ -49,7 +49,7 @@ class PeopleController < ApplicationController
   # GET /people.json
   def index
     require 'typeform'
-    @form = Typeform::Form.new(typeform_id)
+    @form = Typeform::Form.new(VNdhGF)
     @verified_types = Person.uniq.pluck(:verified).select(&:present?)
     @people = if params[:tags].blank? || params[:tags] == ''
                 Person.paginate(page: params[:page]).order(sort_column + ' ' + sort_direction).where(active: true)

@@ -8,7 +8,6 @@ Person.create(
   city: 'Brooklyn',
   state: 'NY',
   postal_code: '11222',
-  geography_id: '', # ward
   primary_device_id: 1,
   primary_device_description: 'Apple Macbook Pro',
   secondary_device_id: 2,
@@ -29,7 +28,6 @@ Person.create(
   city: 'Chicago',
   state: 'IL',
   postal_code: '60613',
-  geography_id: '44', # ward
   primary_device_id: 1,
   primary_device_description: 'iPad',
   secondary_device_id: 2,

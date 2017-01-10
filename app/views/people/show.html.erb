@@ -18,9 +18,6 @@
           <dt>Address</dt>
           <dd><%= address_fields_to_sentence(@person) %></dd>
 
-          <dt>Ward</dt>
-          <dd><% if @person.geography_id.present? %> <%= link_to @person.geography_id, search_index_path(adv: 1, geography_id: @person.geography_id ) %><% end %></dd>
-
           <dt>Neighborhood</dt>
           <dd><%= best_in_place @person, :neighborhood %></dd>
 

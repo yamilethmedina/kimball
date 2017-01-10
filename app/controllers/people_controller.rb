@@ -53,17 +53,17 @@ class PeopleController < ApplicationController
     Typeform.api_key = ENV['TYPEFORM_API_KEY']
     typeform_id = "VNdhGF"
     form = Typeform::Form.new(typeform_id)
-    @verified_types = Person.uniq.pluck(:verified).select(&:present?)
-    @people = if params[:tags].blank? || params[:tags] == ''
-                Person.paginate(page: params[:page]).order(sort_column + ' ' + sort_direction).where(active: true)
-              else
-                tag_names =  params[:tags].split(',').map(&:strip)
-                tags = Tag.where(name: tag_names)
-                Person.paginate(page: params[:page]).order(sort_column + ' ' + sort_direction).where(active: true).includes(:tags).where(tags: { id: tags.pluck(:id) })
-              end
-    @tags = params[:tags].blank? ? '[]' : Tag.where(name: params[:tags].split(',').map(&:strip)).to_json(methods: [:value, :label, :type])
+    # @verified_types = Person.uniq.pluck(:verified).select(&:present?)
+    # @people = if params[:tags].blank? || params[:tags] == ''
+    #             Person.paginate(page: params[:page]).order(sort_column + ' ' + sort_direction).where(active: true)
+    #           else
+    #             tag_names =  params[:tags].split(',').map(&:strip)
+    #             tags = Tag.where(name: tag_names)
+    #             Person.paginate(page: params[:page]).order(sort_column + ' ' + sort_direction).where(active: true).includes(:tags).where(tags: { id: tags.pluck(:id) })
+    #           end
+    # @tags = params[:tags].blank? ? '[]' : Tag.where(name: params[:tags].split(',').map(&:strip)).to_json(methods: [:value, :label, :type])
     all_entries = form.all_entries
-    return all_entries
+    all_entries
   end
 
   # GET /people/1

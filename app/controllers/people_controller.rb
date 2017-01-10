@@ -49,8 +49,6 @@ class PeopleController < ApplicationController
   # GET /people.json
   def index
     require 'typeform'
-    @Typeform.api_key = ENV['TYPEFORM_API_KEY']
-    @typeform_id = "VNdhGF"
     @form = Typeform::Form.new(typeform_id)
     @verified_types = Person.uniq.pluck(:verified).select(&:present?)
     @people = if params[:tags].blank? || params[:tags] == ''

@@ -153,7 +153,8 @@ class Person < ActiveRecord::Base
     # 'list_22738343_choice_29395153' => :spanish #language
     # 'list_22738343_choice_29395154' => :creole #language
     # 'list_22738343_other' => :other_language #language,
-    'textfield_22061617' => :referral_source, # how did you find out about CUT group?
+    'textfield_22061617' => :referral_source, # how did you find out about CUT group?,
+    'token' => :id,
     'IP'       => :signup_ip # client IP, ignored for the moment
 
   }.freeze

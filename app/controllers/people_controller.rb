@@ -55,7 +55,7 @@ class PeopleController < ApplicationController
     form = Typeform::Form.new(typeform_id)
     # find a way to make @people map to form.all_entries, perhaps in the index view each statement?
     @verified_types = Person.uniq.pluck(:verified).select(&:present?)
-    @people = form.all_entries
+    @people = form.all_entries.to_hash
     # @people = if params[:tags].blank? || params[:tags] == ''
     #             Person.paginate(page: params[:page]).order(sort_column + ' ' + sort_direction).where(active: true)
     #           else

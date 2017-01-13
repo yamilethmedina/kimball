@@ -65,7 +65,7 @@ class PeopleController < ApplicationController
     #           end
     @tags = params[:tags].blank? ? '[]' : Tag.where(name: params[:tags].split(',').map(&:strip)).to_json(methods: [:value, :label, :type])
     # @response = form.all_entries
-    JSON.parse(@response)
+    # JSON.parse(@response)
   end
 
   # GET /people/1

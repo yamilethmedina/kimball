@@ -3,10 +3,11 @@ Logan::Application.routes.draw do
   resources :mailchimp_updates
   namespace :public do
     resources :people, only: [:new, :create, :deactivate] do
-      post '/:typeform' => 'webhooks#receive', as: :receive_webhooks
       get '/deactivate/:token', to:'people#deactivate', as: :deactivate
     end
   end
+
+  post '/:typeform' => 'webhooks#receive', as: :receive_webhooks
 
   namespace :v2 do
     resources :event_invitations

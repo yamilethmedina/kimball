@@ -53,9 +53,7 @@ class PeopleController < ApplicationController
     Typeform.api_key = ENV['TYPEFORM_API_KEY']
     typeform_id = "VNdhGF"
     form = Typeform::Form.new(typeform_id)
-    # find a way to make @people map to form.all_entries, perhaps in the index view each statement?
-    @verified_types = Person.uniq.pluck(:verified).select(&:present?)
-    @people = form.all_entries.to_hash
+    # @verified_types = Person.uniq.pluck(:verified).select(&:present?)
     # @people = if params[:tags].blank? || params[:tags] == ''
     #             Person.paginate(page: params[:page]).order(sort_column + ' ' + sort_direction).where(active: true)
     #           else
@@ -63,9 +61,9 @@ class PeopleController < ApplicationController
     #             tags = Tag.where(name: tag_names)
     #             Person.paginate(page: params[:page]).order(sort_column + ' ' + sort_direction).where(active: true).includes(:tags).where(tags: { id: tags.pluck(:id) })
     #           end
-    @tags = params[:tags].blank? ? '[]' : Tag.where(name: params[:tags].split(',').map(&:strip)).to_json(methods: [:value, :label, :type])
-    # @response = form.all_entries
-    # JSON.parse(@response)
+    # @tags = params[:tags].blank? ? '[]' : Tag.where(name: params[:tags].split(',').map(&:strip)).to_json(methods: [:value, :label, :type])
+    all_entries = form.all_entries
+    all_entries
   end
 
   # GET /people/1

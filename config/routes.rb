@@ -7,7 +7,7 @@ Logan::Application.routes.draw do
     end
   end
 
-  post '/:typeform' => 'webhooks#receive', as: :receive_webhooks
+  post '/public/:typeform' => 'webhooks#receive', as: :receive_webhooks
 
   namespace :v2 do
     resources :event_invitations

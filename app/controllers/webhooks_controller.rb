@@ -1,5 +1,5 @@
 class WebhooksController < ApplicationController
-  skip_before_filter :verify_authenticity_token
+  skip_before_filter  :verify_authenticity_token, :authenticate_user!
 
   def receive
     if request.headers['Content-Type'] == 'application/json'

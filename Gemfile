@@ -26,6 +26,9 @@ gem 'ransack', github: 'activerecord-hackery/ransack'
 
 gem 'figaro'
 
+# webhooks
+gem 'webhook', '~> 1.0.0'
+
 
 group :development do
   # gem 'capistrano'
@@ -206,6 +209,7 @@ group :test do
 
   # in memory redis for testing only
   gem 'mock_redis'
+
 end
 
 group :development, :test do

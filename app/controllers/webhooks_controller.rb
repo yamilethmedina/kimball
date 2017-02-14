@@ -9,7 +9,9 @@ class WebhooksController < ApplicationController
       data = params.as_json
     end
 
-    Webhook::Received.save(data: data, integration: params[:typeform])
+    # put in database (with model? in something?)
+
+    Person.create(data: data, integration: params[:typeform])
 
     render nothing: true
   end

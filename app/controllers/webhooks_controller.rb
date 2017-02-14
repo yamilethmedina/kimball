@@ -11,7 +11,11 @@ class WebhooksController < ApplicationController
 
     # put in database (with model? in something?)
 
-    PeopleController.new.initialize_from_typeform(params)
+    field_ids = JSON.parse(response.body.webhook.form_response.answers)['field'].map { |p| p['id'] }
+
+    # Person.create(:first_name => data.webhook.form_response.answers.map(@:text))
+
+    # @Person = Person.create(:first_name => params[:])
 
     render nothing: true
   end

@@ -12,7 +12,8 @@ class WebhooksController < ApplicationController
     # put in database (with model? in something?)
 
     puts data
-    # field_ids = JSON.parse(data.webhook.form_response.answers)['field'].map { |p| p['id'] }
+    field_ids = JSON.parse(answers)['field'].map { |p| p['id'] }
+    puts field_ids
 
     # Person.create(:first_name => data.webhook.form_response.answers.map(@:text))
 

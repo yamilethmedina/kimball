@@ -11,7 +11,7 @@ class WebhooksController < ApplicationController
 
     # put in database (with model? in something?)
 
-    Person.create(data: data, integration: params[:typeform])
+    PeopleController.new(data: data, integration: params[:typeform])
 
     render nothing: true
   end

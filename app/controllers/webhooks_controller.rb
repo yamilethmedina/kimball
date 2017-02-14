@@ -11,7 +11,7 @@ class WebhooksController < ApplicationController
 
     # put in database (with model? in something?)
 
-    PeopleController.initialize_from_typeform(params)
+    PeopleController.new.initialize_from_typeform(params)
 
     render nothing: true
   end

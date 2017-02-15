@@ -14,7 +14,7 @@ class WebhooksController < ApplicationController
     puts data
 
     data['form_response']['answers']['field'].each do |id|
-      print id
+      print id[0]
     end
     # field_ids = JSON.parse(data.form_response.answers)['field'].map { |p| p['id'] }
     # puts field_ids

@@ -3,17 +3,17 @@ class WebhooksController < ApplicationController
 
   def receive
     if request.headers['Content-Type'] == 'application/json'
-      @data = JSON.parse(request.body.read)
+      data = JSON.parse(request.body.read)
     else
       # application/x-www-form-urlencoded
-      @data = params.as_json
+      data = params.as_json
     end
 
     # put in database (with model? in something?)
 
-    puts @data
+    puts data
 
-    @data['form_response'[0]['answers'][0]['field'][0].each do |id|
+    data['form_response'[0]['answers'][0]['field'].each do |id|
       print id[0]
     end
     # field_ids = JSON.parse(data.form_response.answers)['field'].map { |p| p['id'] }

@@ -5,8 +5,8 @@ class WebhooksController < ApplicationController
     if request.headers['Content-Type'] == 'application/json'
       @data = JSON.parse(request.body.read)
     else
-      @# application/x-www-form-urlencoded
-      data = params.as_json
+      # application/x-www-form-urlencoded
+      @data = params.as_json
     end
 
     # put in database (with model? in something?)

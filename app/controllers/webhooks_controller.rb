@@ -12,7 +12,7 @@ class WebhooksController < ApplicationController
     # put in database (with model? in something?)
 
     puts data
-    data.is_a?(Array)
+    puts data.is_a?(Array)
 
     # data['form_response']['answers']['field'].each do |id|
     #   print id

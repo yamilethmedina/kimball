@@ -17,8 +17,8 @@ class WebhooksController < ApplicationController
 
 
     # puts data.first["form_response"]["answers"]["field"]
-    puts data["form_response"]["answers"][0]["field"]["id"] # what languages do you speak?
-    puts data["form_response"]["answers"][0]["choices"]["labels"].to_s # English, Spanish
+    puts data["form_response"]["answers"][0]["field"]["id"] # zip code
+    puts data["form_response"]["answers"][0]["choices"]["label"].to_s # 33165
 
 
     # hash_of_params = JSON.load(request.params["form_response"]).to_hash

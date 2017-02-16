@@ -14,7 +14,12 @@ class WebhooksController < ApplicationController
     puts data
     puts data.is_a?(Hash) #it is not an array, should be a hash
 
-    puts data["form_response"]["answers"]["field"]
+
+
+    # puts data.params["form_response"]["answers"]["field"]
+
+    hash_of_params = JSON.load(request.params["form_response"]).to_hash
+    puts hash_of_params
 
     # data["form_response"]["answers"]["field"].each do |id|
     #   print id

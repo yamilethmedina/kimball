@@ -19,7 +19,7 @@ class WebhooksController < ApplicationController
     # puts data.first["form_response"]["answers"]["field"]
     # puts data["form_response"]["answers"][0]["field"]["id"] 
     puts data["form_response"]["answers"][0] # randomized field
-    @answers = data["form_response"]["answers"]
+    answers = data["form_response"]["answers"]
     # puts answers
     # answers.each do |item|
     #   puts item 
@@ -58,7 +58,25 @@ class WebhooksController < ApplicationController
     mobile_phone = answers.find { |x| x["field"]["id"] == "41986479"}
     puts phone_number = mobile_phone["text"]
 
+    voted = answers.find { |x| x["field"]["id"] == "41986490"}
+    puts did_you_vote = voted["boolean"].to_s.strip.empty?
 
+    called_311 = answers.find { |x| x["field"]["id"] == "41986491"}
+    puts did_you_call_311 = called_311["boolean"].to_s
+
+    # TODO: "other"
+    access_primary = answers.find { |x| x["field"]["id"] == "41986484"}
+    puts primary_internet_access = access_primary["choice"]["label"].to_s
+
+    # TODO: "other"
+    access_secondary = answers.find { |x| x["field"]["id"] == "41986485"}
+    puts secondary_internet_access = access_secondary["choice"]["label"].to_s
+
+    access_device = answers.find { |x| x["field"]["id"] == "41986486"}
+    puts primary_internet_device = access_primary["choice"]["label"].to_s
+
+    make_model = answers.find { |x| x["field"]["id"] == "41986480"}
+    puts primary_device_make_model = make_model["text"]
 
     # hash_of_params = JSON.load(request.params["form_response"]).to_hash
     # puts hash_of_params

@@ -64,12 +64,16 @@ class WebhooksController < ApplicationController
     called_311 = answers.find { |x| x["field"]["id"] == "41986491"}
     puts did_you_call_311 = called_311["boolean"].to_s
 
-    # TODO: "other"
     access_primary = answers.find { |x| x["field"]["id"] == "41986484"}
+    unless access_primary["choice"]["other"].to_s.strip.empty?
+      access_primary["choice"]["label"].push(access_primary["choice"]["other"])
+    end
     puts primary_internet_access = access_primary["choice"]["label"].to_s
-
-    # TODO: "other"
+    
     access_secondary = answers.find { |x| x["field"]["id"] == "41986485"}
+    unless access_secondary["choice"]["other"].to_s.strip.empty?
+      access_secondary["choice"]["label"].push(access_secondary["choice"]["other"])
+    end
     puts secondary_internet_access = access_secondary["choice"]["label"].to_s
 
     access_device = answers.find { |x| x["field"]["id"] == "41986486"}
@@ -77,6 +81,15 @@ class WebhooksController < ApplicationController
 
     make_model = answers.find { |x| x["field"]["id"] == "41986480"}
     puts primary_device_make_model = make_model["text"]
+
+    referral_cutgroup = answers.find { |x| x["field"]["id"] == "41986481"}
+    puts referral = referral_cutgroup["text"]
+
+    participation_method = answers.find { |x| x["field"]["id"] == "41986483"}
+    puts how_to_participate = participation_method["choices"]["labels"].to_s
+
+    notification_method = answers.find { |x| x["field"]["id"] == "41986487"}
+    puts how_to_notify = notification_method["choices"]["labels"].to_s
 
     # hash_of_params = JSON.load(request.params["form_response"]).to_hash
     # puts hash_of_params

@@ -266,10 +266,9 @@ class PeopleController < ApplicationController
     def person_params
       params.require(:person).permit(:first_name, :last_name, :verified, :email_address,
         :address_1, :address_2, :city, :state, :postal_code, :geography_id, :primary_device_id,
-        :primary_device_description, :secondary_device_id, :secondary_device_description,
-        :primary_connection_id, :primary_connection_description, :secondary_connection_id,
-        :secondary_connection_description, :phone_number, :participation_type,
-        :preferred_contact_method,
+        :primary_device_description, :primary_connection_id, :primary_connection_description, 
+        :secondary_connection_id, :phone_number, :participation_type, :referral,
+        :preferred_contact_method, :voted, :called_311,
         gift_cards_attributes: [:gift_card_number, :expiration_date, :person_id, :notes, :created_by, :reason, :amount, :giftable_id, :giftable_type])
     end
 

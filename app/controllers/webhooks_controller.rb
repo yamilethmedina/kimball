@@ -76,9 +76,7 @@ class WebhooksController < ApplicationController
     how_to_notify = notification_method["choices"]["labels"].to_s
 
 
-    # Person.create(:first_name => data.webhook.form_response.answers.map(@:text))
-
-    @Person = Person.create(:first_name => first_name, :last_name => first_name, :email_address => email, :address_1 => address, :city => city, :state => state, :postal_code => zip_code, :phone_number => phone_number, :called_311 => did_you_call_311, :voted => did_you_vote, :primary_connection_id => primary_internet_access, :secondary_connection_id => secondary_internet_access, :primary_device_id => primary_internet_device, :primary_device_description => primary_device_make_model, :referral => referral, :participation_type => how_to_participate, :preferred_contact_method => how_to_notify)
+    @Person = Person.create(:first_name => first_name, :last_name => last_name, :email_address => email, :address_1 => address, :city => city, :state => state, :postal_code => zip_code, :phone_number => phone_number, :called_311 => did_you_call_311, :voted => did_you_vote, :primary_connection_id => primary_internet_access, :secondary_connection_id => secondary_internet_access, :primary_device_id => primary_internet_device, :primary_device_description => primary_device_make_model, :referral => referral, :participation_type => how_to_participate, :preferred_contact_method => how_to_notify)
       puts @Person
 
     render nothing: true

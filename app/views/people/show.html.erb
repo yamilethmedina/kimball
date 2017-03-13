@@ -75,10 +75,10 @@
 
           <dd><%= best_in_place @person, :preferred_contact_method, as: :select, collection: [['SMS','SMS'], ['EMAIL','EMAIL']] %></dd>
           <dt>Voted in last election?</dt>
-          <dd><%= best_in_place @person, :voted, as: :select, :collection => %w(YES NO) %></dd>
+          <dd><%= best_in_place @person, :voted %></dd>
 
           <dt>Ever called 311?</dt>
-          <dd><%= best_in_place @person, :called_311, as: :select, :collection => %w(YES NO) %></dd>
+          <dd><%= best_in_place @person, :called_311 %></dd>
 
           <dt>Facebook</dt>
           <dd>link to facebook</dd>

@@ -159,6 +159,7 @@ GEM
       thor (~> 0.14)
     flamegraph (0.9.5)
     formatador (0.2.5)
+    geocoder (1.4.3)
     gh (0.14.0)
       addressable
       backports
@@ -541,6 +542,7 @@ DEPENDENCIES
   fast_blank
   figaro
   flamegraph
+  geocoder (~> 1.4, >= 1.4.3)
   gibbon (~> 2.2.3)
   gsm_encoder
   guard

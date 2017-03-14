@@ -64,6 +64,9 @@ class Person < ActiveRecord::Base
   has_many :tags, through: :taggings
   has_many :taggings, as: :taggable
 
+  geocoded_by :address
+  after_validation :geocode
+
   # we don't really need a join model, exceptionally HABTM is more appropriate
   # rubocop:disable Rails/HasAndBelongsToMany
   has_and_belongs_to_many :event_invitations, class_name: '::V2::EventInvitation', join_table: :invitation_invitees_join_table

@@ -29,6 +29,8 @@ gem 'figaro'
 # webhooks
 gem 'webhook', '~> 1.0.0'
 
+gem 'geocoder', '~> 1.4', '>= 1.4.3'
+
 
 group :development do
   # gem 'capistrano'

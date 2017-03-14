@@ -102,6 +102,11 @@
   <!-- TODO: fix broken Google Maps embed -->
   <div class="span6">
     <h3>Location</h3>
+     <% address_params = "q=" + CGI.escape(address)
+    params += ""
+    google_maps_link = URI.parse("http://maps.google.com/maps/geo?#{params}")
+    params2 = params + "|&amp;zoom=14&amp;size=570x200&amp;sensor=false"
+    google_maps_embed = URI.parse("http://maps.google.com/maps/geo?#{params2}") %>
     <a href="<%= google_maps_link %>" target="_blank" title="View in Google Maps"><img src="<%= google_maps_embed %>"></a>
     <!-- <img src="https://maps.googleapis.com/maps/api/streetview?size=570x200&amp;location=<%= CGI.escape(address_fields_to_sentence(@person)).html_safe %>&amp;sensor=false"> -->
   </div>

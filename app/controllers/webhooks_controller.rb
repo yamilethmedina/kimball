@@ -31,8 +31,7 @@ class WebhooksController < ApplicationController
     addr = answers.find { |x| x["field"]["id"] == "41986477"}
     address = addr["text"]
     address_params = "q=" + CGI.escape(address)
-    params += ""
-    google_maps_link = URI.parse("http://maps.google.com/maps/geo?#{params}")
+    google_maps_link = URI.parse("http://maps.google.com/maps/geo?#{address_params}")
     params2 = params + "|&amp;zoom=14&amp;size=570x200&amp;sensor=false"
     google_maps_embed = URI.parse("http://maps.google.com/maps/geo?#{params2}")
 

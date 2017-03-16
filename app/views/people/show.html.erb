@@ -103,7 +103,7 @@
   <div class="span6">
     <h3>Location</h3>
     <%= person.address.to_s %>
-    <%= image_tag(google_map(center: <%= address_fields_to_sentence(@person) %>)) %>
+    <%= image_tag(google_map(center: address_fields_to_sentence(@person))) %>
   </div>
 </div>
 

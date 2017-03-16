@@ -287,5 +287,9 @@ class PeopleController < ApplicationController
       %w(asc desc).include?(params[:direction]) ? params[:direction] : 'desc'
     end
 
+    def google_map(center)
+      "https://maps.googleapis.com/maps/api/staticmap?center=#{center}&size=570x200&zoom=14"
+    end
+
 end
 # rubocop:enable ClassLength

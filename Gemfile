@@ -30,6 +30,7 @@ gem 'figaro'
 gem 'webhook', '~> 1.0.0'
 
 gem 'geocoder', '~> 1.4', '>= 1.4.3'
+gem 'googlestaticmap', '~> 1.2', '>= 1.2.4'
 
 
 group :development do

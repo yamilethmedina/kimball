@@ -172,6 +172,7 @@ GEM
       multi_json (>= 1.11.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
+    googlestaticmap (1.2.4)
     gsm_encoder (0.1.6)
     guard (2.14.0)
       formatador (>= 0.2.4)
@@ -544,6 +545,7 @@ DEPENDENCIES
   flamegraph
   geocoder (~> 1.4, >= 1.4.3)
   gibbon (~> 2.2.3)
+  googlestaticmap (~> 1.2, >= 1.2.4)
   gsm_encoder
   guard
   guard-bundler

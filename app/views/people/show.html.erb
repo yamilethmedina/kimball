@@ -104,7 +104,7 @@
     <h3>Location</h3>
   <% map = GoogleStaticMap.new(:zoom => 14, :width => 570, :height => 200, :center => MapLocation.new(:address => address_fields_to_sentence(@person))) %>
   <% image_url = map.url(:auto) %>
-  <img src="{image_url}">
+  <img src="<%= {image_url} %>">
   </div>
 </div>
 
